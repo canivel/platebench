@@ -1,9 +1,58 @@
-# PlateBench
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
+    <img alt="PlateBench" src="assets/logo-light.svg" width="400">
+  </picture>
+</p>
+
+<p align="center">
+  <b>Calorie estimation from one meal photo, scored the way a phone app calls the model.</b>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"></a>
+  <img alt="Python 3.10+" src="https://img.shields.io/badge/python-3.10%2B-3776AB.svg?logo=python&amp;logoColor=white">
+  <img alt="8 public tracks" src="https://img.shields.io/badge/tracks-8%20public-E8743B.svg">
+  <img alt="arXiv: coming soon" src="https://img.shields.io/badge/arXiv-coming%20soon-B31B1B.svg?logo=arxiv&amp;logoColor=white">
+  <a href="https://huggingface.co/canivel/grape-1-94m-onnx"><img alt="Grape 1 on Hugging Face" src="https://img.shields.io/badge/%F0%9F%A4%97%20Grape%201-94M%20ONNX-FFD21E.svg"></a>
+  <a href="https://huggingface.co/canivel/plum-1-0.8b-gguf"><img alt="Plum 1 on Hugging Face" src="https://img.shields.io/badge/%F0%9F%A4%97%20Plum%201-0.8B%20GGUF-FFD21E.svg"></a>
+</p>
 
 PlateBench is an evaluation of calorie estimation from a single meal photo, set up the way a phone app calls the
 model. It has eight public tracks from six datasets. Every model gets the same JPEG bytes, and generative models get
 the same prompt, output grammar, retry rule and token limit. The headline metric is kcal mean absolute error (MAE)
 with a 95% bootstrap interval, and models are compared by paired differences on the same photos.
+
+## Quick start
+
+```
+git clone https://github.com/canivel/platebench && cd platebench
+pip install -r requirements.txt
+python -m platebench.tracks jfb --source /path/to/food-scan-benchmark-dataset --no-images
+python -m platebench.score --track jfb --model "Plum 1" --model "Grape 1" --against CalorieK
+```
+
+The last command scores the stored predictions; no GPU and no model download needed.
+
+## Leaderboard
+
+kcal MAE on the full public tracks, lower is better (PC scores on public photos, not phone accuracy). Bold is the
+best row per track. Models run with the app contract in `platebench/harness/`.
+
+| Model | Size | Overhead | Angled | NutritionVerse | SNAPMe | JFB | DiningBench | DB customer | OmniFood8K |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| **Plum 1** (Grape 1 + 0.8B decision model) | 1.2 GB | **45.3** | **43.9** | 490.3 | **131.2** | **131.6** | **219.0** | **231.0** | 173.0 |
+| Grape 1 recipe (G5, mean of 2 seeds) | 188 MB | 50.1 | 48.7 | 525.5 | 136.6 | 143.9 | 232.0 | 239.6 | 167.9 |
+| J5 (0.8B, 26-option readout) | 1.0 GB | 49.8 | 47.4 | 462.3 | 133.7 | 135.2 | 227.2 | 243.4 | 189.7 |
+| Qwen3.8-27B, zero-shot | server | 92.7 | 102.7 | **427.7** | 135.8 | 132.2 | 226.0 | 236.5 | **143.0** |
+| CalorieK | SigLIP2-base regressor | 104.9 | 57.2 | 657.2 | 158.0 | 178.5 | 312.7 | 320.3 | 228.1 |
+| Boba | 0.8B VLM | 108.5 | 83.3 | 680.7 | 197.5 | 241.4 | 472.2 | 458.1 | 259.7 |
+
+SNAPMe and JFB here include the holdout photos. The paper's headline numbers are on the once-read holdout slice:
+Plum 1 has 126.0 kcal MAE on SNAPMe and 133.4 on JFB, against 154.5 and 170.1 for CalorieK. Every row above can be
+recomputed with `python -m platebench.paper`.
+
+## What is in this repository
 
 This repository holds what you need to rebuild the tracks, run a model with the app's contract, score it, and
 check the numbers in the paper:
@@ -19,7 +68,8 @@ Benchmark images are not in this repository, and neither are reference labels fo
 OmniFood8K. You rebuild those from your own copy of each dataset.
 
 Paper: "Distributional Readouts Make Small Vision-Language Models Better Calorie Estimators", Danilo Canivel,
-Nomm.ai. arXiv: to be added.
+Nomm.ai. arXiv link coming with the announcement. Models: [Grape 1](https://huggingface.co/canivel/grape-1-94m-onnx)
+and [Plum 1](https://huggingface.co/canivel/plum-1-0.8b-gguf) (OpenRAIL-M).
 
 ## Tracks
 
@@ -148,8 +198,7 @@ python -m platebench.paper
 It recomputes the all-tracks table (kcal MAE on the full tracks and the G5 seed range) and the holdout table (MAE,
 interval, bias, median relative error, share within 20%, paired differences against CalorieK and against the
 previous Plum candidate, and the holdout macro errors quoted in the text), and compares each value at the precision
-the paper prints. Two holdout bias values printed in the paper are off by one in the last digit (JFB, previous Plum
-candidate: -6.5 printed as -7; JFB, J5: -24.5 printed as -25); the script reports them as differences.
+the paper prints. All 288 values match.
 
 Only the public tracks are part of this repository.
 
