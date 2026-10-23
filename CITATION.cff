@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use PlateBench, please cite the paper below."
+title: "PlateBench"
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/canivel/platebench"
+authors:
+  - family-names: Canivel
+    given-names: Danilo
+    affiliation: Nomm.ai
+preferred-citation:
+  type: article
+  title: "Distributional Readouts Make Small Vision-Language Models Better Calorie Estimators"
+  authors:
+    - family-names: Canivel
+      given-names: Danilo
+      affiliation: Nomm.ai
+  year: 2026
+  notes: "arXiv: to be added"

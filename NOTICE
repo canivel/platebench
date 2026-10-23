@@ -1,0 +1,40 @@
+PlateBench
+Copyright 2026 Canivel LLC
+
+The code in this repository is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository does not contain benchmark images. It contains photo ids for every track, model predictions, and,
+for the tracks whose license allows it, reference labels derived from the datasets below. Each dataset keeps its
+own license; using a track means accepting the terms of its source.
+
+Nutrition5k (overhead and angled tracks)
+  Thames et al., "Nutrition5k: Towards Automatic Nutritional Understanding of Generic Food", CVPR 2021.
+  https://github.com/google-research-datasets/Nutrition5k, CC BY 4.0.
+  The angled track uses calorie-lens-data by shalev396
+  (https://huggingface.co/datasets/shalev396/calorie-lens-data), CC BY 4.0, which repackages Nutrition5k.
+  references/overhead.jsonl and references/angled.jsonl are derived from these datasets under CC BY 4.0.
+
+SNAPMe
+  Larke et al., "Surveying Nutrient Assessment with Photographs of Meals (SNAPMe): A Benchmark Dataset of Food
+  Photos for Dietary Assessment", Nutrients 15(23):4972, 2023. USDA Ag Data Commons,
+  doi:10.15482/USDA.ADC/1528346, CC BY-SA 4.0.
+  references/snapme.jsonl is derived from SNAPMe and is shared under CC BY-SA 4.0.
+
+January Food Benchmark (JFB)
+  Hosseinian et al., "January Food Benchmark (JFB): A Public Benchmark Dataset and Evaluation Suite for
+  Multimodal Food Analysis", arXiv:2508.09966, 2025. CC BY 4.0.
+  references/jfb.jsonl is derived from JFB under CC BY 4.0.
+
+NutritionVerse-Real
+  Tai et al., "NutritionVerse-Real: An Open Access Manually Collected 2D Food Scene Dataset for Dietary Intake
+  Estimation", arXiv:2401.08598, 2023. Kaggle nutritionverse/nutritionverse-real. No license is stated.
+  Only photo ids are included here.
+
+DiningBench
+  Jin et al., "DiningBench: A Hierarchical Multi-view Benchmark for Perception and Reasoning in the Dietary
+  Domain", ACL 2026, arXiv:2604.10425. Hugging Face meituan/DiningBench, CC BY-NC-ND 4.0.
+  Only photo ids and model predictions are included here; no reference labels or images.
+
+OmniFood8K
+  Yu et al., "OmniFood8K: Single-Image Nutrition Estimation via Hierarchical Frequency-Aligned Fusion", CVPR 2026,
+  arXiv:2604.12356. The download has no license file. Only photo ids are included here.

@@ -1,0 +1,8 @@
+# Scoring stored predictions needs numpy only.
+numpy>=1.26
+# Rebuilding tracks with images also needs these.
+pillow>=10
+pillow-heif>=0.16
+# The angled track reads calorie-lens-data parquet files.
+pandas>=2
+pyarrow>=14

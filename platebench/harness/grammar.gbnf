@@ -1,0 +1,5 @@
+root ::= "{" ws "\"items\"" ws ":" ws "[" ws item (ws "," ws item){0,7} ws "]" ws "}"
+item ::= "{" ws "\"name\"" ws ":" ws name ws "," ws "\"grams\"" ws ":" ws number ws "," ws "\"calories\"" ws ":" ws number ws "," ws "\"protein\"" ws ":" ws number ws "," ws "\"carbs\"" ws ":" ws number ws "," ws "\"fat\"" ws ":" ws number ws "}"
+name ::= "\"" [^"\\\x00-\x1F]{1,64} "\""
+number ::= ("0" | [1-9] [0-9]{0,4}) ("." [0-9]{1,2})?
+ws ::= [ \t\n\r]{0,4}

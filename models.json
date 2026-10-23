@@ -1,0 +1,31 @@
+{
+  "about": "Prediction files in predictions/<track>/<file>.jsonl and the named entries the scorer builds from them. An entry is a list of seeds; each seed is a per-photo weighted sum of predicted kcal of the listed files. With several seeds, MAE and the other metrics are the mean over seeds and intervals use the seed-mean absolute error per photo. Names follow the paper.",
+  "files": {
+    "caloriek": "CalorieK, PyTorch reference weights (Dralkh/CalorieK, revision 9049a8f95e55334bcbecbc0de82d04cb21668a39). Plate totals and macros.",
+    "boba": "Boba, Q4_K_M GGUF with mmproj (Doses-AI/boba-0.8b-food-GGUF, revision 089010e0ec12d24044cb94f1d4597a10d8490790) on llama.cpp, temperature 0.1, app prompt and grammar.",
+    "qwen3.8-27b-zero-shot": "Qwen3.8-27B zero-shot, AWQ INT4 on vLLM, app prompt and grammar through structured outputs, greedy decoding.",
+    "e2-q8_0": "E2: Qwen3.5-0.8B food-list model, Q8_0 GGUF with mmproj on llama.cpp, temperature 0.1.",
+    "r1e": "R1E: SigLIP2-base plate-total regressor (the registered run).",
+    "j5": "J5: OneJev 0.8B decision model, kcal only.",
+    "e2-d-j5-list-t0.1": "E2-D-J5 food list (Plum 1's list), Q8_0 GGUF on llama.cpp, temperature 0.1. Totals are the list sums.",
+    "e2-rl-list-t0.1": "E2-RL food list (in the previous Plum candidate), Q8_0 GGUF on llama.cpp, temperature 0.1. Totals are the list sums.",
+    "g5-seed7": "G5 seed 7: the Grape 1 recipe (banded decision head on a SigLIP2 encoder, point estimate is the distribution mean), seed 7.",
+    "g5-seed13": "G5 seed 13: Grape 1. Research outputs from the training code (bicubic resize), not the app file."
+  },
+  "entries": {
+    "CalorieK": [{"caloriek": 1.0}],
+    "Boba": [{"boba": 1.0}],
+    "Qwen3.8-27B zero-shot": [{"qwen3.8-27b-zero-shot": 1.0}],
+    "E2 Q8_0": [{"e2-q8_0": 1.0}],
+    "R1E": [{"r1e": 1.0}],
+    "J5": [{"j5": 1.0}],
+    "E2-D-J5 list (t0.1)": [{"e2-d-j5-list-t0.1": 1.0}],
+    "E2-RL list (t0.1)": [{"e2-rl-list-t0.1": 1.0}],
+    "Grape 1": [{"g5-seed13": 1.0}],
+    "G5 (Grape 1 recipe)": [{"g5-seed7": 1.0}, {"g5-seed13": 1.0}],
+    "Plum 1": [{"g5-seed13": 0.55, "j5": 0.45}],
+    "Plum 1 total (G5 seed mean)": [{"g5-seed7": 0.55, "j5": 0.45}, {"g5-seed13": 0.55, "j5": 0.45}],
+    "Previous Plum candidate": [{"g5-seed13": 0.85, "e2-rl-list-t0.1": 0.15}],
+    "Previous Plum candidate (G5 seed mean)": [{"g5-seed7": 0.85, "e2-rl-list-t0.1": 0.15}, {"g5-seed13": 0.85, "e2-rl-list-t0.1": 0.15}]
+  }
+}

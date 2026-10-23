@@ -1,0 +1,13 @@
+# Rebuilt tracks and benchmark images are never committed.
+data/
+*.jpg
+*.jpeg
+*.png
+*.heic
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
